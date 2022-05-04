@@ -9,6 +9,7 @@ import StreamList from './streams/StreamList';
 const App = () => {
     return (
         <div>
+            <h1>Header!</h1>
             <BrowserRouter>
                 <div>
                    <Route path="/" exact component={StreamList} />
@@ -16,7 +17,6 @@ const App = () => {
                    <Route path="/streams/edit" component={StreamEdit} />
                    <Route path="/streams/delete" component={StreamDelete} />
                    <Route path="/streams/show" component={StreamShow} />
-
                 </div>
             </BrowserRouter>
         </div>
