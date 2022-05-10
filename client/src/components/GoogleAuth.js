@@ -26,19 +26,35 @@ class GoogleAuth extends React.Component {
         this.setState({ isSignedIn: this.auth.isSignedIn.get() });
     };
 
+    onSignIn = () => {
+        this.auth.signIn();
+        //Can just pass this line as inline function but helper function is easier for other devs to read the code.
+    };
+
+    onSignOut = () => {
+        this.auth.signOut();
+    };
+
     renderAuthButton() {
         if (this.state.isSignedIn === null) {
             return null;
         } else if (this.state.isSignedIn) {
             return (
-                <button className="ui red google button">
+                <button
+                    onClick={this.onSignOut}
+                    className="ui red google button"
+                >
+                    {/* ()is not needed in a callback function, otherwise it will be invoked immediately when the cmp is rendered. */}
                     <i className="google icon" />
                     Sign Out
                 </button>
             );
         } else {
             return (
-                <button className="ui red google button">
+                <button
+                    onClick={this.onSignIn}
+                    className="ui red google button"
+                >
                     <i className="google icon" />
                     Sign In With Google
                 </button>
