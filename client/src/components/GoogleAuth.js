@@ -10,7 +10,7 @@ class GoogleAuth extends React.Component {
                     clientId:
                         "436925754518-8c7hipcq7hhic3i5umf363m5jq9ilurd.apps.googleusercontent.com",
                     scope: "email",
-                    plugin_name: "streamy", // This parameter is required..
+                    plugin_name: "streamy", // This parameter is required(updated 5/10/22)
                 })
                 .then(() => {
                     this.auth = window.gapi.auth2.getAuthInstance();
@@ -26,12 +26,12 @@ class GoogleAuth extends React.Component {
         this.setState({ isSignedIn: this.auth.isSignedIn.get() });
     };
 
-    onSignIn = () => {
+    onSignInClick = () => {
         this.auth.signIn();
         //Can just pass this line as inline function but helper function is easier for other devs to read the code.
     };
 
-    onSignOut = () => {
+    onSignOutClick = () => {
         this.auth.signOut();
     };
 
@@ -41,7 +41,7 @@ class GoogleAuth extends React.Component {
         } else if (this.state.isSignedIn) {
             return (
                 <button
-                    onClick={this.onSignOut}
+                    onClick={this.onSignOutClick}
                     className="ui red google button"
                 >
                     {/* ()is not needed in a callback function, otherwise it will be invoked immediately when the cmp is rendered. */}
@@ -52,7 +52,7 @@ class GoogleAuth extends React.Component {
         } else {
             return (
                 <button
-                    onClick={this.onSignIn}
+                    onClick={this.onSignInClick}
                     className="ui red google button"
                 >
                     <i className="google icon" />
