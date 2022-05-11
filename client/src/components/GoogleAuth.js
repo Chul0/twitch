@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { signIn, signOut } from "../actions";
 
 class GoogleAuth extends React.Component {
-    state = { isSignedIn: null };
-
     componentDidMount() {
         window.gapi.load("client:auth2", () => {
             window.gapi.client
@@ -16,8 +14,7 @@ class GoogleAuth extends React.Component {
                 })
                 .then(() => {
                     this.auth = window.gapi.auth2.getAuthInstance();
-                    this.setState({ isSignedIn: this.auth.isSignedIn.get() });
-                    // get(), listen() is a prototype method function.
+                    this.onAuthChange(this.auth.isSignedIn.get());
                     this.auth.isSignedIn.listen(this.onAuthChange);
                     //listen() is a method you can pass a callback function to, this function will be invoked every time Auth status changes.
                 });
@@ -43,9 +40,9 @@ class GoogleAuth extends React.Component {
     };
 
     renderAuthButton() {
-        if (this.state.isSignedIn === null) {
+        if (this.props.isSignedIn === null) {
             return null;
-        } else if (this.state.isSignedIn) {
+        } else if (this.props.isSignedIn) {
             return (
                 <button
                     onClick={this.onSignOutClick}
@@ -74,7 +71,12 @@ class GoogleAuth extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return { isSignedIn: state.auth.isSignedIn };
+    //REMEMBER:The first argument:state has all the combined reducers.
+};
+
 export default connect(
-    null,
-    { signIn, signOut } //REMEMBER: This is going to return an object which will always be passed as props.
+    mapStateToProps,
+    { signIn, signOut } //REMEMBER: Connect will pass action into the component as props; returns an object which will always be passed as props.
 )(GoogleAuth);
