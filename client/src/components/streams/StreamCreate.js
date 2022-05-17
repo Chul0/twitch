@@ -26,9 +26,11 @@ class StreamCreate extends React.Component {
         );
     };
 
-    onSubmit(formValues) {
+    onSubmit = (formValues) => {
+        //initially it was onSubmit(formValues) { .. } which is not a callback function
+        //now it is a callback function so it should be bind as an arrow function.
         this.props.createStream(formValues)
-        //everytime user clicks submmit, we will call action creator:createStream and submit it with formValues
+        //every time user clicks submit, we will call action creator:createStream and submit it with formValues
     }
 
     render() {
@@ -72,5 +74,5 @@ const formWrapped = reduxForm({
 })(StreamCreate);
 
 export default connect(null, { 
-    createStream //pass an action creator. REMEMBER: Connect will pass action into the component as props; returns an object which will always be passed as props.
+    createStream
  })(formWrapped);
