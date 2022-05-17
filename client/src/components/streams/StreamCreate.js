@@ -2,6 +2,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 
 class StreamCreate extends React.Component {
+    
     renderError({ error, touched }) {
         if (touched && error) {
             return (
@@ -44,7 +45,7 @@ const validate = (formValues) => {
 
     if (!formValues.title) { errors.title = "You must enter a title" }
     if (!formValues.description) { errors.description = "You must enter a description"}
-    
+
     return errors;
 };
 
