@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
+import { createStream } from '../../actions'
 
 class StreamCreate extends React.Component {
     renderError({ error, touched }) {
@@ -25,7 +27,8 @@ class StreamCreate extends React.Component {
     };
 
     onSubmit(formValues) {
-        console.log(formValues);
+        this.props.createStream(formValues)
+        //everytime user clicks submmit, we will call action creator:createStream and submit it with formValues
     }
 
     render() {
@@ -63,7 +66,11 @@ const validate = (formValues) => {
     return errors;
 };
 
-export default reduxForm({
+const formWrapped = reduxForm({
     form: "streamCreate",
     validate,
 })(StreamCreate);
+
+export default connect(null, { 
+    createStream //pass an action creator. REMEMBER: Connect will pass action into the component as props; returns an object which will always be passed as props.
+ })(formWrapped);
