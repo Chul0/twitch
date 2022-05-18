@@ -26,7 +26,7 @@ class StreamCreate extends React.Component {
         );
     };
 
-    onSubmit = (formValues) => {
+    onSubmit = formValues => {
         //initially it was onSubmit(formValues) { .. } which is not a callback function
         //now it is a callback function so it should be bind as an arrow function.
         this.props.createStream(formValues)
