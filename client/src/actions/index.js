@@ -25,14 +25,11 @@ export const signOut = () => {
 };
 
 export const createStream = formValues => async (dispatch, getState) => {
-    //Add redux builtin argument getState: you can access to state and pull out some data.
-    const { userId } = getState().auth; //destructure out userId 
+    const { userId } = getState().auth; 
     const response = await streams.post("/streams", {...formValues, userId});
-    //^take all the form values and combine userId too
 
     dispatch({ type: CREATE_STREAM, payload: response.data });
-    //To use async with redux-thunk.. you need to call `dispatch` manually and pass action(either object or function) in it.
-    //instead of returning an object `return { type: 'FETCH_POST', payload: response }`, call dispatch and pass object in it because I'm using redux-thunk.
+    //TODO:Do some programmatic navigation to get the user back to the root route
 };
 
 export const fetchStreams = () => async dispatch => {
