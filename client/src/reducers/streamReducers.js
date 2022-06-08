@@ -9,6 +9,8 @@ import {
 
 export default (state = {}, action) => {
     switch (action.type) {
+        case FETCH_STREAMS:
+            return { ...state, ..._.mapKeys(action.payload, "id") };
         case FETCH_STREAM:
             return { ...state, [action.payload.id]: action.payload };
         case CREATE_STREAM:
@@ -16,9 +18,9 @@ export default (state = {}, action) => {
         case EDIT_STREAM:
             return { ...state, [action.payload.id]: action.payload };
         case DELETE_STREAM:
-            return _.omit(state, action.payload); 
-            //delete the entire state and payload.
-            //omit is not going to change the original state, instead it creates a new object with all the properties from state, so no need spread operator
+            return _.omit(state, action.payload);
+        //delete the entire state and payload.
+        //omit is not going to change the original state, instead it creates a new object with all the properties from state, so no need spread operator
         default:
             return state;
     }
