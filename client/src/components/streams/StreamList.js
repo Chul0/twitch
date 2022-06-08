@@ -8,11 +8,28 @@ class StreamList extends React.Component {
         this.props.fetchStreams();
         //Fetch streams just one time when this cmp is rendered.
     }
+    
+    renderAdmin(stream) {
+        //helper function for edit&delete buttons
+        if(stream.userId === this.props.currentUserId) {
+            return (
+                <div className="right floated content">
+                    <button className="ui button primary">
+                        Edit
+                    </button>
+                    <button className="ui button negative">
+                        Delete
+                    </button>
+                </div>
+            )
+        }
+    }
 
     renderList() {
         return this.props.streams.map((stream) => {
             return (
                 <div className="item" key={stream.id}>
+                    {this.renderAdmin(stream)}
                     <i className="large middle aligned icon camera" />
                     <div className="content">
                         {stream.title}
@@ -34,8 +51,11 @@ class StreamList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { streams: Object.values(state.streams) };
-    //Object.values(): built-in js method. take object as an argument, all the values the object has will be pulled out, and be inserted into an array
+    return { 
+        streams: Object.values(state.streams),
+        //Object.values(): built-in js method. take object as an argument, all the values the object has will be pulled out, and be inserted into an array
+        currentUserId: state.auth.userId  //passing userId
+    };
 };
 
 export default connect(mapStateToProps, { fetchStreams })(StreamList);
