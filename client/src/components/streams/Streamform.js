@@ -26,7 +26,7 @@ class StreamForm extends React.Component {
 
     onSubmit = formValues => {
         this.props.onSubmit(formValues)
-        //this prop onSubmit should be passed from parent cmps: StreamCreate, StreamEdit
+        //this prop onSubmit is passed from parent cmps: StreamCreate, StreamEdit
     }
 
     render() {
