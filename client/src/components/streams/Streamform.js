@@ -1,9 +1,7 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { createStream } from '../../actions'
 
-class StreamCreate extends React.Component {
+class StreamForm extends React.Component {
     renderError({ error, touched }) {
         if (touched && error) {
             return (
@@ -27,10 +25,8 @@ class StreamCreate extends React.Component {
     };
 
     onSubmit = formValues => {
-        //initially it was onSubmit(formValues) { .. } which is not a callback function
-        //now it is a callback function so it should be bind as an arrow function.
-        this.props.createStream(formValues)
-        //every time user clicks submit, we will call action creator:createStream and submit it with formValues
+        this.props.onSubmit(formValues)
+        //this prop onSubmit should be passed from parent cmps: StreamCreate, StreamEdit
     }
 
     render() {
@@ -60,11 +56,9 @@ const validate = (formValues) => {
     return errors;
 };
 
-const formWrapped = reduxForm({
-    form: "streamCreate",
+export default reduxForm({
+    form: "streamForm",
     validate,
-})(StreamCreate);
+})(StreamForm);
 
-export default connect(null, { 
-    createStream
- })(formWrapped);
+//This reusable component doesn't need action creator, connect(), because it is just for the form.
