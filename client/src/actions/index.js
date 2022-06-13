@@ -58,4 +58,7 @@ export const deleteStream = (id) => async (dispatch) => {
 
     dispatch({ type: DELETE_STREAM, payload: id });
     //To make sure correct stream is deleted, pass id into payload
+
+    history.push('/');
+    //navigate user back to the main page after delete
 };
