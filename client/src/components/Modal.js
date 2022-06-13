@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import history from "../history";
 
 const Modal = (props) => {
     return ReactDOM.createPortal(
         <div
-            onClick={() => history.push("/")} //programatically redirect user when they want to close the modal
+            onClick={props.onDismiss} //programmatically redirect user when they want to close the modal
             className="ui dimmer modals visible active"
         >
             <div
